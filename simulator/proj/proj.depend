@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1697220365 source:c:\users\ykuk\documents\keil projects\simulator\proj\main.c
+	<stdio.h>
+	<stdlib.h>
+	"gnuplot_i.h"
+
+1691958990 c:\users\ykuk\downloads\gnuplot_i-master\gnuplot_i-master\gnuplot_i.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<stdarg.h>
+	<fcntl.h>
+	<time.h>
+
