@@ -22,50 +22,72 @@ Dialog DLL:      TCM.DLL V1.32.0.0
  
 <h2>Project:</h2>
 C:\Users\YkUk\Documents\keil projects\lcd_lab3.uvprojx
-Project File Date:  11/06/2023
+Project File Date:  11/07/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
 compiling main.c...
-main.c(31): warning:  #223-D: function "TIM_ClearITPendingBit" declared implicitly
-      TIM_ClearITPendingBit(MDR_TIMER1, TIM_FLAG_CNT_ARR);
-main.c(31): error:  #20: identifier "TIM_FLAG_CNT_ARR" is undefined
-      TIM_ClearITPendingBit(
-DR_TIMER1, TIM_FLAG_CNT_ARR);
-main.c(34): error:  #20: identifier "delay_finished" is undefined
-      delay_finished = 1;
-main.c(41): error:  #20: identifier "RST_CLK_PCLK_TIM1" is undefined
-      RST_CLK_PCLKcmd(RST_CLK_PCLK_TIM1, ENABLE);
-main.c(44): warning:  #223-D: function "TIM_DeInit" declared implicitly
-      TIM_DeInit(MDR_TIMER1);
-main.c(45): warning:  #223-D: function "TIM_BRGInit" declared implicitly
-      TIM_BRGInit(MDR_TIMER1, TIM_HCLKdiv1);
-main.c(45): error:  #20: identifier "TIM_HCLKdiv1" is undefined
-      TIM_BRGInit(
-DR_TIMER1, TIM_HCLKdiv1);
-main.c(46): warning:  #223-D: function "TIM_SetCounter" declared implicitly
-      TIM_SetCounter(MDR_TIMER1, 0);
-main.c(47): warning:  #223-D: function "TIM_SetPeriod" declared implicitly
-      TIM_SetPeriod(MDR_TIMER1,  SystemCoreClock / 1000 - 1); // ???????? 1 ?? (??? ???????? ? ?????????????)
-main.c(48): warning:  #223-D: function "TIM_ITConfig" declared implicitly
-      TIM_ITConfig(MDR_TIMER1, TIM_IT_CNT_ARR, ENABLE);
-main.c(48): error:  #20: identifier "TIM_IT_CNT_ARR" is undefined
-      TIM_ITConfig(
-DR_TIMER1, TIM_IT_CNT_ARR, ENABLE);
-main.c(49): warning:  #223-D: function "TIM_Cmd" declared implicitly
-      TIM_Cmd(MDR_TIMER1, ENABLE);
-main.c(52): error:  #20: identifier "TIM1_IRQn" is undefined
-      
-VIC_EnableIRQ(TIM1_IRQn);
-main.c(87): warning:  #223-D: function "MDR_PORT_SetPin" declared implicitly
-      MDR_PORT_SetPin(PORT_DB0, PIN_DB0, (data & 0x01));
-main.c(96): warning:  #223-D: function "MDR_PORT_SetPin" declared implicitly
-      MDR_PORT_SetPin(PORT_WR2, PIN_WR2, 1);
-main.c(98): warning:  #223-D: function "delay" declared implicitly
-  		delay();
-main.c: 10 warnings, 6 errors
-".\Objects\lcd_lab3.axf" - 6 Error(s), 10 Warning(s).
+main.c(61): warning:  #188-D: enumerated type mixed with another type
+      PORT_WriteBit(
+ORT_DB0, 
+IN_DB0, (data & 0x01));
+main.c(62): warning:  #188-D: enumerated type mixed with another type
+      PORT_WriteBit(
+ORT_DB1, 
+IN_DB1, (data & 0x02) >> 1);
+main.c(63): warning:  #188-D: enumerated type mixed with another type
+      PORT_WriteBit(
+ORT_DB2, 
+IN_DB2, (data & 0x04) >> 2);
+main.c(64): warning:  #188-D: enumerated type mixed with another type
+      PORT_WriteBit(
+ORT_DB3, 
+IN_DB3, (data & 0x08) >> 3);
+main.c(70): warning:  #188-D: enumerated type mixed with another type
+      PORT_WriteBit(
+ORT_WR2, 
+IN_WR2, 1);
+main.c(73): warning:  #188-D: enumerated type mixed with another type
+  		PORT_WriteBit(
+ORT_A0, 
+IN_A0, 0);
+main.c(75): warning:  #188-D: enumerated type mixed with another type
+      PORT_WriteBit(
+ORT_WR1, 
+IN_WR1, 1);
+main.c(77): warning:  #188-D: enumerated type mixed with another type
+  		PORT_WriteBit(
+ORT_WR1, 
+IN_WR1, 0);
+main.c(79): warning:  #188-D: enumerated type mixed with another type
+  		PORT_WriteBit(
+ORT_A0, 
+IN_A0, 1);
+main.c(84): warning:  #188-D: enumerated type mixed with another type
+      PORT_WriteBit(
+ORT_WR1, 
+IN_WR1, 1);
+main.c(86): warning:  #188-D: enumerated type mixed with another type
+  		PORT_WriteBit(
+ORT_WR1, 
+IN_WR1, 0);
+main.c(91): warning:  #188-D: enumerated type mixed with another type
+      PORT_WriteBit(
+ORT_WR1, 
+IN_WR1, 1);
+main.c(93): warning:  #188-D: enumerated type mixed with another type
+  		PORT_WriteBit(
+ORT_WR1, 
+IN_WR1, 0);
+main.c(96): warning:  #188-D: enumerated type mixed with another type
+      PORT_WriteBit(
+ORT_WR2, 
+IN_WR2, 0);
+main.c: 14 warnings, 0 errors
+linking...
+Program Size: Code=1580 RO-data=224 RW-data=4 ZI-data=1636  
+".\Objects\lcd_lab3.axf" - 0 Error(s), 14 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -79,7 +101,6 @@ Package Vendor: Keil
                 http://www.keil.com/pack/Keil.MDR1986BExx.1.5.3.pack
                 Keil.MDR1986BExx.1.5.3
                 Milandr MDR1986BExx Series Device Support, Drivers and Examples
-   * Component: TIMER Version: 1.5
    * Component: RST_CLK Version: 1.5
    * Component: PORT Version: 1.5
    * Component: Startup Version: 1.5
@@ -94,28 +115,23 @@ Package Vendor: Keil
 
 <h2>Collection of Component Files used:</h2>
 
-   * Component: Keil::Drivers:TIMER:1.5
-      Include file:  Libraries\MDR32F9Qx_StdPeriph_Driver\inc\MDR32F9Qx_timer.h
-      Source file:   Libraries\MDR32F9Qx_StdPeriph_Driver\src\MDR32F9Qx_timer.c
-
    * Component: Keil::Drivers:RST_CLK:1.5
-      Source file:   Libraries\MDR32F9Qx_StdPeriph_Driver\src\MDR32F9Qx_rst_clk.c
       Include file:  Libraries\MDR32F9Qx_StdPeriph_Driver\inc\MDR32F9Qx_rst_clk.h
+      Source file:   Libraries\MDR32F9Qx_StdPeriph_Driver\src\MDR32F9Qx_rst_clk.c
 
    * Component: Keil::Drivers:PORT:1.5
       Include file:  Libraries\MDR32F9Qx_StdPeriph_Driver\inc\MDR32F9Qx_port.h
       Source file:   Libraries\MDR32F9Qx_StdPeriph_Driver\src\MDR32F9Qx_port.c
 
    * Component: Keil::Device:Startup:1.5
-      Include file:  Libraries\CMSIS\CM3\CoreSupport\core_cm3.h
-      Source file:   Libraries\CMSIS\CM3\DeviceSupport\MDR32F9Qx\startup\arm\system_MDR32F9Qx.c
-      Include file:  Config\MDR32F9Qx_config.h
       Source file:   Libraries\CMSIS\CM3\DeviceSupport\MDR32F9Qx\startup\arm\startup_MDR32F9Qx.s
+      Source file:   Libraries\CMSIS\CM3\DeviceSupport\MDR32F9Qx\startup\arm\system_MDR32F9Qx.c
       Include file:  Libraries\CMSIS\CM3\DeviceSupport\MDR32F9Qx\startup\arm\system_MDR32F9Qx.h
+      Include file:  Config\MDR32F9Qx_config.h
+      Include file:  Libraries\CMSIS\CM3\CoreSupport\core_cm3.h
 
    * Component: ARM::CMSIS:CORE:5.0.1
-Target not created.
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

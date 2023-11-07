@@ -2,7 +2,7 @@
 #include <MDR32F9Qx_port.h>
 #include <MDR32F9Qx_rst_clk.h>
 #include "MDR32F9Qx_config.h"           // Keil::Device:Startup
-#include "MDR32F9Qx_timer.h"            // Keil::Drivers:TIMER
+
 
 #define PIN_DB0 PORT_Pin_0
 #define PIN_DB1 PORT_Pin_1
@@ -24,33 +24,7 @@
 #define LOCK_ADDRESS 0x0F
 
 #define UNLOCK_VALUE 0x01
-
-void TIM1_IRQHandler(void)
-{
-    // ?????????? ???? ??????????
-    TIM_ClearITPendingBit(MDR_TIMER1, TIM_FLAG_CNT_ARR);
-
-    // ????????????? ???? ????????? ????????
-    delay_finished = 1;
-}
-
-// ??????? ??? ????????????? ???????
-void Timer_Init(void)
-{
-    // ???????? ???????????? ???????
-    RST_CLK_PCLKcmd(RST_CLK_PCLK_TIM1, ENABLE);
-
-    // ??????????? ????? ?????? ???????
-    TIM_DeInit(MDR_TIMER1);
-    TIM_BRGInit(MDR_TIMER1, TIM_HCLKdiv1);
-    TIM_SetCounter(MDR_TIMER1, 0);
-    TIM_SetPeriod(MDR_TIMER1,  SystemCoreClock / 1000 - 1); // ???????? 1 ?? (??? ???????? ? ?????????????)
-    TIM_ITConfig(MDR_TIMER1, TIM_IT_CNT_ARR, ENABLE);
-    TIM_Cmd(MDR_TIMER1, ENABLE);
-
-    // ???????? ?????????? ???????
-    NVIC_EnableIRQ(TIM1_IRQn);
-}
+#define DELAY {__asm__("NOP");__asm__("NOP");__asm__("NOP");__asm__("NOP");}
 void InitIO()
 {
 
@@ -84,42 +58,42 @@ void InitIO()
 void SetData(uint8_t data)
 {
   
-    MDR_PORT_SetPin(PORT_DB0, PIN_DB0, (data & 0x01));
-    MDR_PORT_SetPin(PORT_DB1, PIN_DB1, (data & 0x02) >> 1);
-    MDR_PORT_SetPin(PORT_DB2, PIN_DB2, (data & 0x04) >> 2);
-    MDR_PORT_SetPin(PORT_DB3, PIN_DB3, (data & 0x08) >> 3);
+    PORT_WriteBit(PORT_DB0, PIN_DB0, (data & 0x01));
+    PORT_WriteBit(PORT_DB1, PIN_DB1, (data & 0x02) >> 1);
+    PORT_WriteBit(PORT_DB2, PIN_DB2, (data & 0x04) >> 2);
+    PORT_WriteBit(PORT_DB3, PIN_DB3, (data & 0x08) >> 3);
 }
 
 
 void WriteData(uint8_t adress, uint8_t data)
 {
-    MDR_PORT_SetPin(PORT_WR2, PIN_WR2, 1);
+    PORT_WriteBit(PORT_WR2, PIN_WR2, 1);
     SetData(adress);
-		delay();
-		MDR_PORT_SetPin(PORT_A0, PIN_A0, 0);
-		delay();
-    MDR_PORT_SetPin(PORT_WR1, PIN_WR1, 1);
-		delay();	
-		MDR_PORT_SetPin(PORT_WR1, PIN_WR1, 0);
-		delay();
-		MDR_PORT_SetPin(PORT_A0, PIN_A0, 1);
-		delay();
+		DELAY
+		PORT_WriteBit(PORT_A0, PIN_A0, 0);
+		DELAY
+    PORT_WriteBit(PORT_WR1, PIN_WR1, 1);
+		DELAY	
+		PORT_WriteBit(PORT_WR1, PIN_WR1, 0);
+		DELAY
+		PORT_WriteBit(PORT_A0, PIN_A0, 1);
+		DELAY
 		
     SetData(data);
-		delay();
-    MDR_PORT_SetPin(PORT_WR1, PIN_WR1, 1);
-		delay();	
-		MDR_PORT_SetPin(PORT_WR1, PIN_WR1, 0);
-		delay();
+		DELAY
+    PORT_WriteBit(PORT_WR1, PIN_WR1, 1);
+		DELAY	
+		PORT_WriteBit(PORT_WR1, PIN_WR1, 0);
+		DELAY
 	
 		SetData(data);
-		delay();
-    MDR_PORT_SetPin(PORT_WR1, PIN_WR1, 1);
-		delay();	
-		MDR_PORT_SetPin(PORT_WR1, PIN_WR1, 0);
-		delay();
+		DELAY
+    PORT_WriteBit(PORT_WR1, PIN_WR1, 1);
+		DELAY	
+		PORT_WriteBit(PORT_WR1, PIN_WR1, 0);
+		DELAY
     
-    MDR_PORT_SetPin(PORT_WR2, PIN_WR2, 0);
+    PORT_WriteBit(PORT_WR2, PIN_WR2, 0);
 
 }
 
